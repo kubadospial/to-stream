@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'to-stream-holder';
+  index = 0;
+
+  increment() {
+    this.index++;
+  }
 }

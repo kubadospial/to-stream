@@ -10,9 +10,11 @@ export function toStream<T>() {
   return (target: T, propName: string): void => {
     Object.defineProperty(target, propName, {
       set(value: T): void {
+        console.log(value);
         setter$.next(value);
       },
       get(): Observable<T> {
+        console.log('asd');
         return state$;
       },
     });
