@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "to-stream": {
+    "to-stream-holder": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,19 +17,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/to-stream",
+            "outputPath": "dist/to-stream-holder",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -66,18 +61,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "to-stream:build"
+            "browserTarget": "to-stream-holder:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "to-stream:build:production"
+              "browserTarget": "to-stream-holder:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "to-stream:build"
+            "browserTarget": "to-stream-holder:build"
           }
         },
         "test": {
@@ -87,13 +82,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },
@@ -105,24 +95,63 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "to-stream:serve"
+            "devServerTarget": "to-stream-holder:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "to-stream:serve:production"
+              "devServerTarget": "to-stream-holder:serve:production"
             }
           }
         }
       }
-    }},
-  "defaultProject": "to-stream"
+    },
+    "to-stream": {
+      "projectType": "library",
+      "root": "projects/to-stream",
+      "sourceRoot": "projects/to-stream/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/to-stream/tsconfig.lib.json",
+            "project": "projects/to-stream/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/to-stream/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/to-stream/src/test.ts",
+            "tsConfig": "projects/to-stream/tsconfig.spec.json",
+            "karmaConfig": "projects/to-stream/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/to-stream/tsconfig.lib.json",
+              "projects/to-stream/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "to-stream-holder"
 }

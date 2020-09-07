@@ -1,0 +1,12 @@
+{
+  "name": "to-stream",
+  "version": "0.1.1",
+  "peerDependencies": {
+    "@angular/common": "^9.1.12",
+    "@angular/core": "^9.1.12",
+    "rxjs": "~6.5.4"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  }
+}
