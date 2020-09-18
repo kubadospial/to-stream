@@ -1,1 +1,3 @@
-<p>current index is {{ index | async }}</p>
+<p>just an index: {{ index }}</p>
+<p *ngIf="index$">current index is {{ index$ | async }}</p>
+<p *ngIf="variableName$">current someVariable is {{ variableName$ | async }}</p>

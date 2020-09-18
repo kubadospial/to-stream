@@ -1,11 +1,7 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  ChangeDetectionStrategy,
-} from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { toStream } from 'projects/to-stream/src/public-api';
+import { assignStream } from 'projects/to-stream/src/public-api';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-child',
@@ -15,8 +11,15 @@ import { toStream } from 'projects/to-stream/src/public-api';
 })
 export class ChildComponent {
   @Input()
-  @toStream()
-  index: Observable<number>;
+  @assignStream('variableName$')
+  index = 1;
 
-  constructor() {}
+  index$: Observable<number>;
+  variableName$: Observable<number>;
+
+  constructor() {
+    this.variableName$ = this.variableName$.pipe(
+      map((val: number) => val * val)
+    );
+  }
 }
