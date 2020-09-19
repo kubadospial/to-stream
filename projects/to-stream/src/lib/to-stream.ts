@@ -49,13 +49,12 @@ export function toStream<T>(
     component[!!variableName ? variableName : inputName + '$'] = _val$;
 
     const orgSet = Object.getOwnPropertyDescriptor(component, inputName)?.set;
-    const hasVariableSetter = !!orgSet;
     const _setter = (value: T): void => {
       _state$.next(value);
       _val = value;
     };
 
-    if (hasVariableSetter) {
+    if (!!descriptor) {
       Object.defineProperty(descriptor, 'set', {
         value: (value: T) => {
           orgSet.apply(component, [value]);
