@@ -1,6 +1,18 @@
 {
-  "name": "to-stream",
+  "name": "@kubadospial/to-stream",
   "version": "0.1.1",
+  "license": "MIT",
+  "description": "@toStream() is a decorator which intercepts value of an @Input and asigns it to a variable as a rxjs stream",
+  "keywords": [
+    "angular",
+    "decorator",
+    "stream",
+    "@Input",
+    "Input",
+    "stream",
+    "rxjs"
+  ],
+  "author": "kubadospial (@kdospial)",
   "peerDependencies": {
     "@angular/common": "^9.1.12",
     "@angular/core": "^9.1.12",
@@ -8,5 +20,14 @@
   },
   "dependencies": {
     "tslib": "^1.10.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/kubadospial/to-stream/issues"
+  },
+  "repository": {
+    "url": "https://github.com/kubadospial/to-stream.git",
+    "type": "git"
+  },
+  "homepage": "https://github.com/kubadospial",
+  "readmeFilename": "README.md"
 }

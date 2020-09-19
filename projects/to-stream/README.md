@@ -1,24 +1,103 @@
-# ToStream
+# @ToStream()
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12.
+@ToStream() is an Angular 9+ decorator which intercepts value of an @Input and assigns it to a variable as a rxjs stream.
 
-## Code scaffolding
+## How to use it
 
-Run `ng generate component component-name --project to-stream` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project to-stream`.
-> Note: Don't forget to add `--project to-stream` or else it will be added to the default project in your `angular.json` file. 
+You just declare decorator @toStream() after an @Input() decorator. Then you need to create a variable with the same name as the @Input()'s variable name with '\$' at the end and you're ready to go.
 
-## Build
+## Examples:
 
-Run `ng build to-stream` to build the project. The build artifacts will be stored in the `dist/` directory.
+```typescript
+@Component({
+    template: `
+    {{ index }}
+    {{ index$ | async }}
+    `
+})
+export class ChildComponent {
 
-## Publishing
+  @Input()
+  @toStream()
+  index: number;
 
-After building your library with `ng build to-stream`, go to the dist folder `cd dist/to-stream` and run `npm publish`.
+  index$: Observable<number>;
 
-## Running unit tests
+  constructor {
+      this.index$ = this.index$.pipe(map((val:number) => val * val));
+  }
 
-Run `ng test to-stream` to execute the unit tests via [Karma](https://karma-runner.github.io).
+}
+```
 
-## Further help
+Also you can pass as a string parameter to the @toStream(...) with a name of other variable to which you want to assign stream to.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```typescript
+@Component({
+    template: `{{ someVar$ | async }}`
+})
+export class ChildComponent {
+
+  @Input()
+  @toStream('someVar$')
+  index: number;
+
+  someVar$: Observable<number>;
+
+  constructor {
+      this.someVar$ = this.someVar$.pipe(map((val:number) => val * val));
+  }
+
+}
+
+```
+
+and you can still use setter assigned to an @Input()
+
+```typescript
+@Component({
+    template: `
+    {{ index }}
+    {{ someVar$ | async }}
+    `
+})
+export class ChildComponent {
+
+  @Input()
+  @toStream('someVar$')
+  set index(index: number) {
+    this._index = index;
+  }
+  get index(): number {
+    return this._index;
+  }
+  private _index: number;
+
+  someVar$: Observable<number>;
+
+  constructor {
+      this.someVar$ = this.someVar$.pipe(map((val:number) => val * val));
+  }
+
+}
+
+```
+
+## Demo
+
+Check the [link]()
+
+## Contributing
+
+1. Fork repo.
+2. `npm install / yarn`.
+3. Make your changes.
+4. Add your tests.
+5. `npm run test / yarn start test`.
+6. `npm run build / yarn start build`.
+7. After all tests are passing.
+8. Commit, push, PR.
+
+## License
+
+Released under the terms of MIT License.
