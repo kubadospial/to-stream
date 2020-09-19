@@ -30,7 +30,7 @@ export class ChildComponent {
 }
 ```
 
-Also you can pass as a string parameter to the @toStream(...) with a name of other variable to which you want to assign stream to.
+Also you can pass a string parameter to the @toStream(...) with a name of other variable to which you want to assign stream to.
 
 ```typescript
 @Component({
@@ -93,8 +93,8 @@ Check the [link]()
 2. `npm install / yarn`.
 3. Make your changes.
 4. Add your tests.
-5. `npm run test / yarn start test`.
-6. `npm run build / yarn start build`.
+5. `npm run test / yarn test`.
+6. `npm run build / yarn build`.
 7. After all tests are passing.
 8. Commit, push, PR.
 
