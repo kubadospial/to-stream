@@ -1,7 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ToStream } from '@kubadospial/to-stream';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ToStream } from 'to-stream';
 
 @Component({
   selector: 'app-child',
