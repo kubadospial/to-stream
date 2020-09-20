@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
-import { toStream } from './to-stream';
+import { ToStream } from './to-stream';
 
 @Component({
   selector: 'lib-child',
@@ -11,7 +11,7 @@ import { toStream } from './to-stream';
 })
 class ChildComponent {
   @Input()
-  @toStream()
+  @ToStream()
   index: number;
 
   index$: Observable<number>;
@@ -30,7 +30,7 @@ class ParentComponent {
   }
 }
 
-describe('toStream', () => {
+describe('ToStream', () => {
   let parentFixt: ComponentFixture<ParentComponent>;
   let parentComponent: ParentComponent;
   let childFixt: ComponentFixture<ChildComponent>;
@@ -76,7 +76,7 @@ describe('toStream', () => {
 })
 class ChildSetterComponent {
   @Input()
-  @toStream()
+  @ToStream()
   set index(index: number) {
     this._index = index;
   }
@@ -89,7 +89,7 @@ class ChildSetterComponent {
   index$: Observable<number>;
 }
 
-describe('toStream - setter', () => {
+describe('ToStream - setter', () => {
   let parentFixt: ComponentFixture<ParentComponent>;
   let parentComponent: ParentComponent;
   let childFixt: ComponentFixture<ChildSetterComponent>;
@@ -135,13 +135,13 @@ describe('toStream - setter', () => {
 })
 class ChildCustomVariableComponent {
   @Input()
-  @toStream('someVariable$')
+  @ToStream('someVariable$')
   index: number;
 
   someVariable$: Observable<number>;
 }
 
-describe('toStream - custom variable', () => {
+describe('ToStream - custom variable', () => {
   let parentFixt: ComponentFixture<ParentComponent>;
   let parentComponent: ParentComponent;
   let childFixt: ComponentFixture<ChildCustomVariableComponent>;
@@ -187,7 +187,7 @@ describe('toStream - custom variable', () => {
 })
 class ChildSetterCustomVariableComponent {
   @Input()
-  @toStream('someVariable$')
+  @ToStream('someVariable$')
   set index(index: number) {
     this._index = index;
   }
@@ -200,7 +200,7 @@ class ChildSetterCustomVariableComponent {
   someVariable$: Observable<number>;
 }
 
-describe('toStream - custom variable / setter', () => {
+describe('ToStream - custom variable / setter', () => {
   let parentFixt: ComponentFixture<ParentComponent>;
   let parentComponent: ParentComponent;
   let childFixt: ComponentFixture<ChildSetterCustomVariableComponent>;

@@ -4,7 +4,7 @@
 
 ## How to use it
 
-You just declare decorator @toStream() after an @Input() decorator. Then you need to create a variable with the same name as the @Input()'s variable name with '\$' at the end and you're ready to go.
+You just declare decorator @ToStream() after an @Input() decorator. Then you need to create a variable with the same name as the @Input()'s variable name with '\$' at the end and you're ready to go.
 
 ## Demo
 
@@ -22,7 +22,7 @@ Check the [link](https://stackblitz.com/edit/to-stream-example)
 export class ChildComponent {
 
   @Input()
-  @toStream()
+  @ToStream()
   index: number;
 
   index$: Observable<number>;
@@ -34,7 +34,7 @@ export class ChildComponent {
 }
 ```
 
-Also you can pass a string parameter to the @toStream('variableName\$') with a name of other variable to which you want to assign stream to.
+Also you can pass a string parameter to the @ToStream('variableName\$') with a name of other variable to which you want to assign stream to.
 
 ```typescript
 @Component({
@@ -46,7 +46,7 @@ Also you can pass a string parameter to the @toStream('variableName\$') with a n
 export class ChildComponent {
 
   @Input()
-  @toStream('someVar$')
+  @ToStream('someVar$')
   index: number;
 
   someVar$: Observable<number>;
@@ -71,7 +71,7 @@ this is how you would use it with a setter assigned to an @Input().
 export class ChildComponent {
 
   @Input()
-  @toStream('someVar$')
+  @ToStream('someVar$')
   set index(index: number) {
     this._index = index;
   }
@@ -105,7 +105,7 @@ You can use this decorator with any other variable in the component. In the resu
 })
 export class ChildComponent {
 
-  @toStream()
+  @ToStream()
   index: number;
 
   index$: Observable<number>;

@@ -2,7 +2,7 @@
   "name": "@kubadospial/to-stream",
   "version": "0.1.1",
   "license": "MIT",
-  "description": "@toStream() is a decorator which intercepts value of an @Input and asigns it to a variable as a rxjs stream",
+  "description": "@ToStream() is a decorator which intercepts value of an @Input and asigns it to a variable as a rxjs stream",
   "keywords": [
     "angular",
     "decorator",

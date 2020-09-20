@@ -1,7 +1,7 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { toStream } from 'to-stream';
+import { ToStream } from 'to-stream';
 
 @Component({
   selector: 'app-child',
@@ -11,7 +11,7 @@ import { toStream } from 'to-stream';
 })
 export class ChildComponent {
   @Input()
-  @toStream('variableName$')
+  @ToStream('variableName$')
   // index: number;
   set index(index: number) {
     this._index = index;

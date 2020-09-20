@@ -1,11 +1,11 @@
 import { ReplaySubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 /**
- * Decorator intercepts a value of Input decorator and transforms it into stream.
+ * ToStream Decorator intercepts a value of Input decorator and transforms it into rxjs stream.
  *
  * @usageNotes
  *
- * Place toStream decorator after the Input decorator, then create a variable
+ * Place ToStream decorator after the Input decorator, then create a variable
  * named as the input's variable name with `$` at the end. The original Input variable is still fully functional.
  *
  * Example:
@@ -14,15 +14,14 @@ import { distinctUntilChanged } from 'rxjs/operators';
  * export class ChildComponent {
  *
  *   @Input()
- *   @toStream()
+ *   @ToStream()
  *   variable: number;
  *
  *   variable$: Observable<number>;
  * }
  *
  * ```
- * @variableName is an optional string parameter. If you want to assing stream with value coming from an Input decorator
- * if you want to assing Observable value comming from Input decorator
+ * @variableName is an optional string parameter. In case you want to assing rxjs stream to a variable of your own choice.
  *
  * Example:
  * ```typescript
@@ -30,7 +29,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
  * export class ChildComponent {
  *
  *   @Input()
- *   @toStream('someOtherVariable$')
+ *   @ToStream('someOtherVariable$')
  *   variable: number;
  *
  *   someOtherVariable$: Observable<number>;
@@ -38,7 +37,7 @@ import { distinctUntilChanged } from 'rxjs/operators';
  * ```
  */
 
-export function toStream<T>(
+export function ToStream<T>(
   variableName?: string
 ): (component: any, inputName: string, descriptor?: any) => void {
   const _state$ = new ReplaySubject<T>(1);
@@ -54,7 +53,7 @@ export function toStream<T>(
       _val = value;
     };
 
-    if (!!descriptor) {
+    if (!!orgSet) {
       Object.defineProperty(descriptor, 'set', {
         value: (value: T) => {
           orgSet.apply(component, [value]);
