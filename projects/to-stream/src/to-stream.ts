@@ -1,7 +1,7 @@
 import { ReplaySubject } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 /**
- * Decorator that gets a value of Input decorator and transforms it into stream.
+ * Decorator intercepts a value of Input decorator and transforms it into stream.
  *
  * @usageNotes
  *

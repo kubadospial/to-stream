@@ -98,6 +98,8 @@ You can use this decorator with any other variable in the component. In the resu
 @Component({
     template: `
     <div (click)="increment()">Click!</div>
+
+    {{ index }} // 1, 2, 3, 4 ...
     {{ index$ | async }} // 1, 4, 9, 16 ...
     `
 })
@@ -105,6 +107,7 @@ export class ChildComponent {
 
   @toStream()
   index: number;
+
   index$: Observable<number>;
 
   constructor {
