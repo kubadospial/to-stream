@@ -1,27 +1,138 @@
-# ToStream
+# @ToStream()
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.12.
+@ToStream is an Angular 9+ decorator which intercepts value of an @Input and assigns it to a variable as a rxjs stream.
 
-## Development server
+## How to use it
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+You just declare decorator @ToStream() after an @Input() decorator. Then you need to create a variable with the same name as the @Input()'s variable name with '\$' at the end and you're ready to go.
 
-## Code scaffolding
+## Demo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Check the [link](https://stackblitz.com/edit/to-stream-example)
 
-## Build
+## Examples
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```typescript
+@Component({
+    template: `
+    {{ index }} // 1, 2, 3, 4 ...
+    {{ index$ | async }} // 1, 4, 9, 16 ...
+    `
+})
+export class ChildComponent {
 
-## Running unit tests
+  @Input()
+  @ToStream()
+  index: number;
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  index$: Observable<number>;
 
-## Running end-to-end tests
+  constructor {
+      this.index$ = this.index$.pipe(map((val: number) => val * val));
+  }
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+}
+```
 
-## Further help
+Also you can pass a string parameter to the @ToStream('variableName\$') with a name of other variable to which you want to assign stream to.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```typescript
+@Component({
+    template: `
+    {{ index }} // 1, 2, 3, 4 ...
+    {{ someVar$ | async }} // 1, 4, 9, 16 ...
+    `
+})
+export class ChildComponent {
+
+  @Input()
+  @ToStream('someVar$')
+  index: number;
+
+  someVar$: Observable<number>;
+
+  constructor {
+      this.someVar$ = this.someVar$.pipe(map((val: number) => val * val));
+  }
+
+}
+
+```
+
+this is how you would use it with a setter assigned to an @Input().
+
+```typescript
+@Component({
+    template: `
+    {{ index }} // 1, 2, 3, 4 ...
+    {{ someVar$ | async }} // 1, 4, 9, 16 ...
+    `
+})
+export class ChildComponent {
+
+  @Input()
+  @ToStream('someVar$')
+  set index(index: number) {
+    this._index = index;
+  }
+  get index(): number {
+    return this._index;
+  }
+  private _index: number;
+
+  someVar$: Observable<number>;
+
+  constructor {
+      this.someVar$ = this.someVar$.pipe(map((val:number) => val * val));
+  }
+
+}
+
+```
+
+## Alternative usage
+
+You can use this decorator with any other variable in the component. In the result you will have value as a stream and a value asigned to variable.
+
+```typescript
+@Component({
+    template: `
+    <div (click)="increment()">Click!</div>
+
+    {{ index }} // 1, 2, 3, 4 ...
+    {{ index$ | async }} // 1, 4, 9, 16 ...
+    `
+})
+export class ChildComponent {
+
+  @ToStream()
+  index: number;
+
+  index$: Observable<number>;
+
+  constructor {
+      this.index$ = this.index$.pipe(map((val:number) => val * val));
+  }
+
+  increment() {
+    this.index++;
+  }
+
+}
+
+```
+
+## Contributing
+
+1. Fork repo.
+2. `npm install / yarn`.
+3. Make your changes.
+4. Add your tests.
+5. `npm run test / yarn test`.
+6. `npm run build / yarn build`.
+7. After all tests are passing.
+8. Commit, push, PR.
+
+## License
+
+Released under the terms of MIT License.
